@@ -1,5 +1,7 @@
 
-setwd("c:/Documents/GitHub/ABM_Hilltopping/")
+setwd("~/GitHub/ABM_Hilltopping/")
+
+#to make sure it is the right place you should do session then set up working directory
 directory = getwd()
 outdir    = paste(directory,"/output/", sep="")
 source(paste(directory, "/source/FunctionSourcer.R", sep =''))
@@ -7,9 +9,9 @@ source(paste(directory, "/source/FunctionSourcer.R", sep =''))
 #parameters
 elevation.V = c(0, 400)           #peak elevation min and max
 landscape.V = 150                 #number of patches on each side, total patch number = landscape*landscape, this was given
-nindvs.V    = 50                  #number of individuals to simulate
+numind.V    = 50                  #number of individuals to simulate
 nsteps.V    = 500                 #number of steps an individual can take, this was given 
-move.V      = c(0.3,0.8)          #decimal likelihood of individual moving to highest neighbor patch (R&G call this q)
+move.V      = 0.8                 #decimal likelihood of individual moving to highest neighbor patch (R&G call this q)
 reps        = 2                   #number of replicates to run each model
 
 parameters = expand.grid(elevation.V,landscape.V,nindvs.V,nsteps.V,move.V) #this creates a data frame for all of these parameters
@@ -20,7 +22,7 @@ parameters = parameters[parameters$elevation!=0,] #what is this for ?
 for(p in 1:nrow(parameters)){
   elevation = c(0, parameters$elevation[p])
   landscape = parameters$landscape[p]
-  nindvs    = parameters$nindvs[p]
+  numind.V    = parameters$nindvs[p]
   nsteps    = parameters$nsteps[p]
   move      = parameters$move[p]
   
@@ -31,7 +33,7 @@ for(p in 1:nrow(parameters)){
     
     #initialize individuals on landscape
     pop = NewPop(nindvs, landscape)
-    points(pop[,1]/150, pop[,2]/150, pch=19, cex=0.5)
+    points(pop[,1]/150, pop[,2]/150, pch=21, cex=0.5)
     #plot(-100,-100, xlim=c(0,150), ylim=c(0,150))
     #points(pop[,1], pop[,2], pch=19, cex=0.5)
     
@@ -49,8 +51,11 @@ for(p in 1:nrow(parameters)){
       
       #record path in single object for all individuals
       pathways = rbind(pathways, movepath)
+      
     }
     rownames(pathways) = seq(1,nindvs,1)
+    dev.copy(png, "../output/Butter.png") #saves it to the source folder that you had everything 
+    dev.off()
     
     #extract needed output from simulation
     #for this project it is fine to NOT do any stats, but you will want to export something (maybe a figure) so you and
@@ -58,3 +63,5 @@ for(p in 1:nrow(parameters)){
     
   } 
 }
+
+

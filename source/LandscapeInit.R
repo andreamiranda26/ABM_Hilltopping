@@ -3,6 +3,8 @@ LandscapeInit = function(elevation, landscape){
   #set up object
   land  = matrix(nrow=landscape, ncol=landscape)
   
+  
+  
   #randomly select landscape peak, but make sure at least 50 cells in from edge
   xpeak = sample(50:(landscape-50), 1)
   ypeak = sample(50:(landscape-50), 1)

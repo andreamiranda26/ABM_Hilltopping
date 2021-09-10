@@ -14,7 +14,7 @@ MoveIndv=function(indv, land, move, nsteps, elevation, landscape){
       ypos = sample(c(-1,0,1), 1) + cypos
     }
     
-    #move to higher elevation
+    #move to higher elevation, added the 'else' here instead of 'if'
     if(movehigh==1){
       #find highest elevation cell
       highpt = which(land[(cxpos-1):(cxpos+1), (cypos-1):(cypos+1)] == max(land[(cxpos-1):(cxpos+1), (cypos-1):(cypos+1)]), arr.ind = TRUE)
