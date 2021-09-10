@@ -1,20 +1,21 @@
 
-setwd("c:/Documents/GitHub/ABM_Hilltopping/)
+setwd("c:/Documents/GitHub/ABM_Hilltopping/")
 directory = getwd()
 outdir    = paste(directory,"/output/", sep="")
 source(paste(directory, "/source/FunctionSourcer.R", sep =''))
 
 #parameters
 elevation.V = c(0, 400)           #peak elevation min and max
-landscape.V = 150                 #number of patches on each side, total patch number = landscape*landscape
+landscape.V = 150                 #number of patches on each side, total patch number = landscape*landscape, this was given
 nindvs.V    = 50                  #number of individuals to simulate
-nsteps.V    = 500                 #number of steps an individual can take
+nsteps.V    = 500                 #number of steps an individual can take, this was given 
 move.V      = c(0.3,0.8)          #decimal likelihood of individual moving to highest neighbor patch (R&G call this q)
 reps        = 2                   #number of replicates to run each model
 
-parameters = expand.grid(elevation.V,landscape.V,nindvs.V,nsteps.V,move.V)
+parameters = expand.grid(elevation.V,landscape.V,nindvs.V,nsteps.V,move.V) #this creates a data frame for all of these parameters
 colnames(parameters) = c("elevation","landscape","nindvs","nsteps","move")
-parameters = parameters[parameters$elevation!=0,]
+parameters = parameters[parameters$elevation!=0,] #what is this for ?
+
 
 for(p in 1:nrow(parameters)){
   elevation = c(0, parameters$elevation[p])
