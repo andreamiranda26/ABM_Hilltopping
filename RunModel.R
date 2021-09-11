@@ -34,6 +34,9 @@ for(p in 1:nrow(parameters)){
     #initialize individuals on landscape
     pop = NPop(nindvs, landscape)
     points(pop[,1]/150, pop[,2]/150, pch=21, cex=0.5)
+    #pop = rbind(pop,NewPop(nindv,landscape)) #this will add the different NewPops together
+    #plot(-100,-100, xlim=c(0,150), ylim=c(0,150))  #this puts the points on its own figure (note 0-150 axes)
+    #points(pop[,1], pop[,2], pch=19, cex=0.5) #puts points on own fig
     
     
     #allow individuals to move within landscape
