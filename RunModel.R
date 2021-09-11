@@ -12,17 +12,17 @@ landscape.V = 150                 #number of patches on each side, total patch n
 numind.V    = 50                  #number of individuals to simulate
 nsteps.V    = 500                 #number of steps an individual can take, this was given 
 move.V      = 0.8                 #decimal likelihood of individual moving to highest neighbor patch (R&G call this q)
-reps        = 2                   #number of replicates to run each model
+reps        = 2                   #number of replicates to run 
 
 parameters = expand.grid(elevation.V,landscape.V,nindvs.V,nsteps.V,move.V) #this creates a data frame for all of these parameters
-colnames(parameters) = c("elevation","landscape","nindvs","nsteps","move")
+colnames(parameters) = c("elevation","landscape","numind","nsteps","move")
 parameters = parameters[parameters$elevation!=0,] #what is this for ?
 
 
 for(p in 1:nrow(parameters)){
   elevation = c(0, parameters$elevation[p])
   landscape = parameters$landscape[p]
-  numind.V    = parameters$nindvs[p]
+  numind    = parameters$nindvs[p]
   nsteps    = parameters$nsteps[p]
   move      = parameters$move[p]
   
@@ -32,10 +32,9 @@ for(p in 1:nrow(parameters)){
     image(land)
     
     #initialize individuals on landscape
-    pop = NewPop(nindvs, landscape)
+    pop = NPop(nindvs, landscape)
     points(pop[,1]/150, pop[,2]/150, pch=21, cex=0.5)
-    #plot(-100,-100, xlim=c(0,150), ylim=c(0,150))
-    #points(pop[,1], pop[,2], pch=19, cex=0.5)
+    
     
     #allow individuals to move within landscape
     pathways = NULL
@@ -44,7 +43,7 @@ for(p in 1:nrow(parameters)){
       indv = pop[i,,drop=FALSE]
       
       #chart movement
-      movepath = MoveIndv(indv, land, move, nsteps, elevation, landscape)
+      movepath = MoveIndv(numind, land, move, nsteps, elevation, landscape)
       
       #plot movement
       lines(movepath[seq(1,length(movepath), 2)]/150, movepath[seq(2,length(movepath), 2)]/150, lwd=2)

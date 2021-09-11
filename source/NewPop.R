@@ -1,4 +1,4 @@
-NewPop = function(nindvs.v, landscape){
+NPop = function(nindvs.v, landscape){
   #how far apart should individuals be, at max?
   variance = 25 #values is in cells
   
