@@ -56,8 +56,8 @@ for(p in 1:nrow(parameters)){
       
     }
     rownames(pathways) = seq(1,nindvs,1)
-    dev.copy(png, "../output/Butter.png") #saves it to the source folder that you had everything 
-    dev.off()
+    dev.copy(png, "../output/Butter.png") #saves it to the source folder that you had everything, albeit adding 'output' saves it in the output folder
+    dev.off() #need to add this if not it will not save
     
     #extract needed output from simulation
     #for this project it is fine to NOT do any stats, but you will want to export something (maybe a figure) so you and
