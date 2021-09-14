@@ -31,6 +31,11 @@ for(p in 1:nrow(parameters)){
     land = LandscapeInit(elevation, landscape)
     image(land)
     
+    #the way Janna did it
+    pdf(paste(directory, "/output/butterflypath_", r, ".pdf", sep=""), width = 8, height = 8)
+    #this will save it directly to the pdf
+    
+    
     #initialize individuals on landscape
     pop = NPop(nindvs, landscape)
     points(pop[,1]/150, pop[,2]/150, pch=21, cex=0.5)
@@ -44,6 +49,7 @@ for(p in 1:nrow(parameters)){
     for(i in 1:nrow(pop)){
       #isolate individual of interest
       indv = pop[i,,drop=FALSE]
+      #the i means iterates
       
       #chart movement
       movepath = MoveIndv(numind, land, move, nsteps, elevation, landscape)
@@ -57,7 +63,7 @@ for(p in 1:nrow(parameters)){
     }
     rownames(pathways) = seq(1,nindvs,1)
     dev.copy(png, "../output/Butter.png") #saves it to the source folder that you had everything, albeit adding 'output' saves it in the output folder
-    dev.off() #need to add this if not it will not save
+    dev.off() #need to add this if not it will not save, if you do the pdf code at the top and close it off then you can open it and see even through the steps. 
     
     #extract needed output from simulation
     #for this project it is fine to NOT do any stats, but you will want to export something (maybe a figure) so you and
@@ -65,5 +71,7 @@ for(p in 1:nrow(parameters)){
     
   } 
 }
+
+#traceback() , allows you to traceback the error so you can find where it is and fix it :)
 
 
